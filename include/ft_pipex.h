@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 15:07:35 by sfournie          #+#    #+#             */
-/*   Updated: 2021/09/11 20:33:45 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/09/13 11:28:15 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 typedef struct	s_cmd
 {
+	char			**full_cmd;
 	char			*cmd;
 	char			**args;
 	struct s_cmd	*next;
@@ -39,6 +40,9 @@ typedef struct s_cmds
 	int		count;
 }				t_cmds;
 
+// Main program
+int		ft_pipex(t_cmds *cmds, char **argv, int argn, char **envp);
+
 // Error handling
 int		ft_error(char *msg);
 int		ft_file_error(char *msg, char *path);
@@ -47,13 +51,14 @@ int		ft_file_error(char *msg, char *path);
 int		ft_open(char *args, int mode, int *fd);
 
 // Commands handling
-int	ft_parse_commands(t_cmds *lst, char **args, char **envp);
+int		ft_parse_commands(t_cmds *lst, char **args);
 
 // List (commands) handling
-t_cmd	*ft_new_cmd(char *cmd, char **args);
+t_cmd	*ft_new_cmd(char *cmd_path, char **full_cmd);
 void	ft_add_front(t_cmds *cmds, t_cmd *new);
 void	ft_add_back(t_cmds *cmds, t_cmd *new);
 void	ft_print_cmds(t_cmd *cmd);
+char	**ft_split_cmds(char const *args, char c);
 
 // Memory handling
 void	ft_free_split(char **split);

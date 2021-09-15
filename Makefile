@@ -6,12 +6,12 @@
 #    By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2021/09/11 20:35:24 by sfournie         ###   ########.fr        #
+#    Updated: 2021/09/15 08:55:45 by sfournie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		= gcc
-CFLAGS	= -Wall -Wextra
+CFLAGS	= -Wall -Wextra -g
 
 NAME	= pipex
 
@@ -21,25 +21,41 @@ LFT		= $(LFT_D)/$(_LFT)
 LFT_M	= cd $(LFT_D) && make
 
 DIR_S	= src
+DIR_O	= obj
 DIR_I	= include
 
-_SRC	= ft_pipex.c ft_error.c ft_commands.c ft_file.c \
-		ft_cmd_list.c ft_utils.c
+
+MAIN	= $(DIR_S)/ft_pipex.c
+_SRC		= ft_error.c ft_commands.c ft_file.c \
+			ft_cmd_list.c ft_utils.c ft_split_cmds.c
 SRC		= $(patsubst %,$(DIR_S)/%,$(_SRC))
+vpath %.c $(DIR_S)
+
+_OBJ	= $(_SRC:.c=.o)
+OBJ	= $(patsubst %,$(DIR_O)/%,$(_OBJ))
+vpath %.o $(DIR_O)
+
+$(DIR_O)/%.o :  %.c
+	$(CC) $(CFLAGS)  -I$(DIR_I)/ -I$(LFT_D)/ -c $< -o $@
 
 all		: $(NAME)
 
-$(NAME)	: $(DIR_I) $(LFT) $(SRC) $(DIR_I) 
-		$(CC) $(CFLAGS) -I$(DIR_I)/ -I$(LFT_D)/ $(LFT) $(SRC) -o $(NAME)
+$(NAME)	: $(DIR_I) $(LFT) $(SRC) $(DIR_O) $(OBJ)
+		$(CC) $(CFLAGS) -I$(DIR_I)/ -I$(LFT_D)/ $(LFT) $(MAIN) $(OBJ) -o $(NAME)
 
 $(LFT)	:
 		$(LFT_M) all
+$(DIR_O):
+		@mkdir obj
 
 clean	: 
-		$(LFT_M) clean
+		@rm -rf $(OBJ)
+		@$(LFT_M) clean
 
 fclean	: clean
-		$(LFT_M) fclean
-		rm -rf $(NAME)
+		@$(LFT_M) fclean
+		@rm -rf $(NAME)
 
-.PHONY	: all clean fclean $(NAME)
+re		: fclean all
+
+.PHONY	: all re clean fclean $(NAME)
