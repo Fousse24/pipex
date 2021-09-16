@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 16:28:39 by sfournie          #+#    #+#             */
-/*   Updated: 2021/09/13 13:32:19 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/09/16 16:14:20 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static char	*ft_check_command(char *cmd)
 {
 	char	*file;
 
-	
 	file = ft_access("", cmd);
 	if (file != NULL)
 		return (file);
@@ -69,10 +68,7 @@ int	ft_parse_commands(t_cmds *lst, char **args)
 			ft_free_split(split);
 		}
 		else
-		{
 			ft_add_back(lst, ft_new_cmd(cmd, split));
-			// printf("\nCommand found : %s", cmd);
-		}
 		i++;
 	}
 	return (1);

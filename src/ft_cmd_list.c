@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 18:47:32 by sfournie          #+#    #+#             */
-/*   Updated: 2021/09/15 10:03:08 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/09/16 15:36:35 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 t_cmd	*ft_new_cmd(char *cmd_path, char **full_cmd)
 {	
-	int		i;
-	int		count;
 	t_cmd	*cmd;
 
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));

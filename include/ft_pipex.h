@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 15:07:35 by sfournie          #+#    #+#             */
-/*   Updated: 2021/09/13 11:28:15 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/09/16 16:03:11 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define PATH_UBIN	"/usr/bin/"
 # define PATH_USBIN	"/usr/sbin/"
 
-typedef struct	s_cmd
+typedef struct s_cmd
 {
 	char			**full_cmd;
 	char			*cmd;

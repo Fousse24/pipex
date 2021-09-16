@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_cmds.c                                    :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 15:40:51 by sfournie          #+#    #+#             */
-/*   Updated: 2021/09/16 16:13:23 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/27 17:45:12 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"ft_pipex.h"
+#include	"libft.h"
 
 static void	*ft_freesplit(char **s)
 {
@@ -53,7 +53,7 @@ static size_t	ft_countchar(char const *s, size_t pos, char delimiter)
 	return (count);
 }
 
-static char	*ft_moveword(char const *s, size_t *pos, char delimiter)
+static	char	*ft_moveword(char const *s, size_t *pos, char delimiter)
 {
 	char	*str;
 	size_t	size;
@@ -73,30 +73,30 @@ static char	*ft_moveword(char const *s, size_t *pos, char delimiter)
 	return (str);
 }
 
-char	**ft_split_cmds(char const *args, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**split;
-	size_t	i;
+	size_t	index;
 	size_t	pos;
 	size_t	words;
 
-	if (args == NULL)
+	if (s == NULL)
 		return (NULL);
 	pos = -1;
-	i = 0;
-	words = ft_countwords(args, c);
+	index = 0;
+	words = ft_countwords(s, c);
 	split = (char **)malloc(sizeof(char *) * (words + 1));
 	if (split == NULL)
 		return (NULL);
-	while (words != 0 && args[++pos] && pos < ft_strlen(args))
+	while (words != 0 && s[++pos] && pos < ft_strlen(s))
 	{
-		if (args[pos] != c)
+		if (s[pos] != c)
 		{
-			split[i] = ft_moveword(args, &pos, c);
-			if (split[i++] == NULL)
+			split[index] = ft_moveword(s, &pos, c);
+			if (split[index++] == NULL)
 				return (ft_freesplit(split));
 		}
 	}
-	split[i] = NULL;
+	split[index] = NULL;
 	return (split);
 }
