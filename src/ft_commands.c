@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 16:28:39 by sfournie          #+#    #+#             */
-/*   Updated: 2021/09/16 16:14:20 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/09/18 14:23:02 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_parse_commands(t_cmds *lst, char **args)
 	int		i;
 
 	i = 0;
-	while (args[i] && args[i + 1])
+	while (args[i] && args[i + 1] != NULL)
 	{
 		split = ft_split_cmds(args[i], ' ');
 		if (split == NULL)
@@ -64,8 +64,9 @@ int	ft_parse_commands(t_cmds *lst, char **args)
 		cmd = ft_check_command(split[0]);
 		if (cmd == NULL)
 		{
-			ft_file_error("Command error with", args[0]);
+			ft_file_error("Command error with", args[i]);
 			ft_free_split(split);
+			return (0);
 		}
 		else
 			ft_add_back(lst, ft_new_cmd(cmd, split));

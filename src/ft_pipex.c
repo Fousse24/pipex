@@ -6,11 +6,29 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 15:07:01 by sfournie          #+#    #+#             */
-/*   Updated: 2021/09/16 16:14:04 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/09/18 14:28:28 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"ft_pipex.h"
+
+static int	ft_write_to_file(fd_src, fd_dst)
+{
+	char	str[10];
+	int		bytes;
+
+	bytes = read(fd_src, str, 10);
+	while (bytes >= 1)
+	{
+		if (write(fd_dst, str, bytes) == -1)
+			return (0);
+		bytes = read(fd_src, str, 10);
+	}
+	if (bytes == -1)
+		return (0);
+	return (1);
+	
+}
 
 static int	ft_resolve(t_cmd *cmd, char **envp, int fd_read, int fd_write)
 {
@@ -20,7 +38,7 @@ static int	ft_resolve(t_cmd *cmd, char **envp, int fd_read, int fd_write)
 		return (ft_error("Pipe error : "));
 	dup2(fd_read, 0);
 	close(fd_read);
-	if (cmd->next == NULL)
+	if (cmd != NULL && cmd->next == NULL)
 		dup2(fd_write, 1);
 	else
 		dup2(pipe_fd[1], 1);
@@ -48,7 +66,12 @@ int	ft_pipex(t_cmds *cmds, char **argv, int argn, char **envp)
 		return (ft_file_error("File error with", argv[argn - 1]));
 	if (ft_open(argv[0], O_RDONLY, &fd_src) < 0)
 		return (ft_file_error("File error with", argv[0]));
-	if (ft_parse_commands(cmds, &argv[1]))
+	if (argv[1] == argv[argn - 1])
+	{
+		if (!ft_write_to_file(fd_src, fd_dst))
+			ft_file_error("Read/write error with ", argv[1]);
+	}
+	else if (ft_parse_commands(cmds, &argv[1]))
 		ft_resolve(cmds->head, envp, fd_src, fd_dst);
 	if (fd_src >= 0)
 		close(fd_src);

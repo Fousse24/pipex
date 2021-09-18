@@ -6,7 +6,7 @@
 #    By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2021/09/16 16:23:00 by sfournie         ###   ########.fr        #
+#    Updated: 2021/09/18 14:28:14 by sfournie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,12 +34,12 @@ _OBJ	= $(_SRC:.c=.o)
 OBJ	= $(patsubst %,$(DIR_O)/%,$(_OBJ))
 vpath %.o $(DIR_O)
 
-$(DIR_O)/%.o :  %.c
+$(DIR_O)/%.o :  %.c 
 	@$(CC) $(CFLAGS)  -I$(DIR_I)/ -I$(LFT_D)/ -c $< -o $@
 
 all		: $(NAME)
 
-$(NAME)	: $(DIR_I) $(LFT) $(SRC) $(DIR_O) $(OBJ)
+$(NAME)	: $(DIR_I) $(LFT) $(SRC) $(DIR_O) $(OBJ) $(MAIN)
 		@$(CC) $(CFLAGS) -I$(DIR_I)/ -I$(LFT_D)/ $(LFT) $(MAIN) $(OBJ) -o $(NAME)
 		# $(shell echo "Compiling pipex done!")
 		# $(shell echo "Executable is : $(NAME)")
