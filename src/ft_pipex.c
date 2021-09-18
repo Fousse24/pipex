@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 15:07:01 by sfournie          #+#    #+#             */
-/*   Updated: 2021/09/18 14:28:28 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/09/18 14:33:31 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static int	ft_write_to_file(fd_src, fd_dst)
 	if (bytes == -1)
 		return (0);
 	return (1);
-	
 }
 
 static int	ft_resolve(t_cmd *cmd, char **envp, int fd_read, int fd_write)
