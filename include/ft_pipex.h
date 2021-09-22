@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 15:07:35 by sfournie          #+#    #+#             */
-/*   Updated: 2021/09/16 16:03:11 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:04:27 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include "libft.h"
-# define PATH_DIR	"~sfournie/Projects/pipex/"
-# define PATH_BIN	"/bin/"
-# define PATH_SBIN	"/sbin/"
-# define PATH_UBIN	"/usr/bin/"
-# define PATH_USBIN	"/usr/sbin/"
 
 typedef struct s_cmd
 {
@@ -49,9 +44,11 @@ int		ft_file_error(char *msg, char *path);
 
 // File handling
 int		ft_open(char *args, int mode, int *fd);
+char	*ft_join_path_file(char const *s1, char const *s2);
 
 // Commands handling
-int		ft_parse_commands(t_cmds *lst, char **args);
+int		ft_parse_commands(t_cmds *lst, char **args, char **envp);
+char	*ft_get_env_path(char **envp);
 
 // List (commands) handling
 t_cmd	*ft_new_cmd(char *cmd_path, char **full_cmd);

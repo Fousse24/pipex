@@ -6,7 +6,7 @@
 #    By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2021/09/18 14:28:14 by sfournie         ###   ########.fr        #
+#    Updated: 2021/09/22 15:19:51 by sfournie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ DIR_O	= obj
 DIR_I	= include
 
 MAIN	= $(DIR_S)/ft_pipex.c
+MAIN_B	= $(DIR_S)/ft_pipex_bonus.c
 _SRC		= ft_error.c ft_commands.c ft_file.c \
 			ft_cmd_list.c ft_utils.c ft_split_cmds.c
 SRC		= $(patsubst %,$(DIR_S)/%,$(_SRC))
@@ -34,8 +35,8 @@ _OBJ	= $(_SRC:.c=.o)
 OBJ	= $(patsubst %,$(DIR_O)/%,$(_OBJ))
 vpath %.o $(DIR_O)
 
-$(DIR_O)/%.o :  %.c 
-	@$(CC) $(CFLAGS)  -I$(DIR_I)/ -I$(LFT_D)/ -c $< -o $@
+$(DIR_O)/%.o :  %.c
+		@$(CC) $(CFLAGS)  -I$(DIR_I)/ -I$(LFT_D)/ -c $< -o $@
 
 all		: $(NAME)
 
@@ -45,6 +46,7 @@ $(NAME)	: $(DIR_I) $(LFT) $(SRC) $(DIR_O) $(OBJ) $(MAIN)
 		# $(shell echo "Executable is : $(NAME)")
 
 $(LFT)	:
+		# $(shell echo "Creating libft library...")
 		@$(LFT_M) all
 		
 $(DIR_O):
@@ -63,6 +65,9 @@ fclean	: clean
 
 re		: fclean all
 
-bonus	: all
+bonus	: $(DIR_I) $(LFT) $(SRC) $(DIR_O) $(OBJ) $(MAIN_B)
+		@$(CC) $(CFLAGS) -I$(DIR_I)/ -I$(LFT_D)/ $(LFT) $(MAIN_B) $(OBJ) -o $(NAME)
+		# $(shell echo "Compiling pipex with bonus done!")
+		# $(shell echo "Executable is : $(NAME)")
 
-.PHONY	: all re clean fclean bonus
+.PHONY	: all re clean fclean bonus compile
