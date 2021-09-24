@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 16:28:39 by sfournie          #+#    #+#             */
-/*   Updated: 2021/09/22 15:21:14 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/09/24 19:29:17 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,3 +92,4 @@ int	ft_parse_commands(t_cmds *lst, char **args, char **envp)
 	ft_free_split(paths);
 	return (1);
 }
+
